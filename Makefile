@@ -1,11 +1,11 @@
 LOCAL_BIN:=$(CURDIR)/bin
 
 generate-sso-api:
-	mkdir -p pkg/sso_v1
+	mkdir -p sso_v1
 	protoc --proto_path api \
-	--go_out=pkg --go_opt=paths=source_relative \
+	--go_out=./ --go_opt=paths=source_relative \
 	--plugin=protoc-gen-go=bin/protoc-gen-go \
-	--go-grpc_out=pkg --go-grpc_opt=paths=source_relative \
+	--go-grpc_out=./ --go-grpc_opt=paths=source_relative \
 	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
 	api/sso_v1/sso.proto
 
