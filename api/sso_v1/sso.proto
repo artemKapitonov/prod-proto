@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package proto;
+
+option go_package="github.com/nikitaSstepanov/prod/sso/pkg/sso";
+
+service Ponger {
+  rpc Ping(google.protobuf.Empty) returns (Pong);
+}
+
+message Pong {
+  string pong = 1;
+}
+
+service AuthService {
+  rpc CheckAccess(CheckAccessData) returns (UserId);
+  rpc Login(LoginRequest) returns (Tokens);
+  rpc Logout(UserId) returns (google.protobuf.Empty);
+  rpc Refresh(RefreshToken) returns (Tokens);
+}
+
+message UserId {
+  uint64 id = 1;
+}
+
+message RefreshToken {
+  string token = 1;
+}
+
+message CheckAccessData{
+  string token = 1;
+  repeated string roles = 2;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message Tokens {
+  string AccessToken = 1;
+  string RefreshToken = 2;
+}
+
+service AccountService {
+  rpc Get(UserId) returns (Account);
+  rpc Create(CreateUser) returns (Tokens);
+  rpc Update(UpdateUser) returns (google.protobuf.Empty);
+  rpc Verify(VerifyRequest) returns (google.protobuf.Empty);
+  rpc ResendCode(UserId) returns (google.protobuf.Empty);
+  rpc Delete(DeleteUser) returns (google.protobuf.Empty);
+}
+
+message VerifyRequest {
+  uint64 id = 1;
+  string code = 2;
+}
+
+
+message Account {
+  uint64 id = 1;
+  string email = 2;
+  string name = 3;
+  uint32  age = 4;
+}
+
+message CreateUser {
+  string email = 1;
+  string name = 2;
+  string password = 3;
+  uint32  age = 4;
+}
+
+message UpdateUser {
+  uint64 id = 1;
+  string email = 2;
+  string name = 3;
+  string password = 4;
+  string old_password = 5;
+  uint32 age = 6;
+}
+
+message DeleteUser {
+  uint64 id = 1;
+  string password = 2;
+}
