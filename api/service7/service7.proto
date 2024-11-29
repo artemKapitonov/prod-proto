@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package proto;
+
+option go_package="github.com/artemKapitonov/prod-proto/service7";
+
+service Ponger {
+  rpc Ping(google.protobuf.Empty) returns (Pong);
+}
+
+message Pong {
+  string pong = 1;
+}

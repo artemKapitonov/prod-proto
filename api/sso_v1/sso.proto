@@ -4,7 +4,7 @@ import "google/protobuf/empty.proto";
 
 package proto;
 
-option go_package="github.com/nikitaSstepanov/prod/sso/pkg/sso";
+option go_package="github.com/artemKapitonov/prod-proto/sso";
 
 service Ponger {
   rpc Ping(google.protobuf.Empty) returns (Pong);
