@@ -45,12 +45,18 @@ message Tokens {
 }
 
 service AccountService {
+  rpc SetRole(SetUserRole) returns (google.protobuf.Empty);
   rpc Get(UserId) returns (Account);
   rpc Create(CreateUser) returns (Tokens);
   rpc Update(UpdateUser) returns (google.protobuf.Empty);
   rpc Verify(VerifyRequest) returns (google.protobuf.Empty);
   rpc ResendCode(UserId) returns (google.protobuf.Empty);
   rpc Delete(DeleteUser) returns (google.protobuf.Empty);
+}
+
+message SetUserRole {
+  uint64 user_id = 1;
+  string role = 2;
 }
 
 message VerifyRequest {

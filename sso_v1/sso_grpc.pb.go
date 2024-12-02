@@ -303,6 +303,7 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AccountServiceClient interface {
+	SetRole(ctx context.Context, in *SetUserRole, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Get(ctx context.Context, in *UserId, opts ...grpc.CallOption) (*Account, error)
 	Create(ctx context.Context, in *CreateUser, opts ...grpc.CallOption) (*Tokens, error)
 	Update(ctx context.Context, in *UpdateUser, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -317,6 +318,15 @@ type accountServiceClient struct {
 
 func NewAccountServiceClient(cc grpc.ClientConnInterface) AccountServiceClient {
 	return &accountServiceClient{cc}
+}
+
+func (c *accountServiceClient) SetRole(ctx context.Context, in *SetUserRole, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/proto.AccountService/SetRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *accountServiceClient) Get(ctx context.Context, in *UserId, opts ...grpc.CallOption) (*Account, error) {
@@ -377,6 +387,7 @@ func (c *accountServiceClient) Delete(ctx context.Context, in *DeleteUser, opts 
 // All implementations must embed UnimplementedAccountServiceServer
 // for forward compatibility
 type AccountServiceServer interface {
+	SetRole(context.Context, *SetUserRole) (*emptypb.Empty, error)
 	Get(context.Context, *UserId) (*Account, error)
 	Create(context.Context, *CreateUser) (*Tokens, error)
 	Update(context.Context, *UpdateUser) (*emptypb.Empty, error)
@@ -390,6 +401,9 @@ type AccountServiceServer interface {
 type UnimplementedAccountServiceServer struct {
 }
 
+func (UnimplementedAccountServiceServer) SetRole(context.Context, *SetUserRole) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetRole not implemented")
+}
 func (UnimplementedAccountServiceServer) Get(context.Context, *UserId) (*Account, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
@@ -419,6 +433,24 @@ type UnsafeAccountServiceServer interface {
 
 func RegisterAccountServiceServer(s grpc.ServiceRegistrar, srv AccountServiceServer) {
 	s.RegisterService(&AccountService_ServiceDesc, srv)
+}
+
+func _AccountService_SetRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetUserRole)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).SetRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.AccountService/SetRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).SetRole(ctx, req.(*SetUserRole))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _AccountService_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -536,6 +568,10 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "proto.AccountService",
 	HandlerType: (*AccountServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "SetRole",
+			Handler:    _AccountService_SetRole_Handler,
+		},
 		{
 			MethodName: "Get",
 			Handler:    _AccountService_Get_Handler,
