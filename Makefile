@@ -9,6 +9,7 @@ generate-api:
 	make generate-s5-api
 	make generate-s6-api
 	make generate-s7-api
+	make generate-support-api
 
 generate-sso-api:
 	mkdir -p sso_v1

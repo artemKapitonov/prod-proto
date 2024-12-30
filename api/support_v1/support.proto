@@ -6,6 +6,15 @@ package proto;
 
 option go_package="github.com/artemKapitonov/prod-proto/support";
 
+service Ponger {
+    rpc Ping(google.protobuf.Empty) returns (Pong);
+}
+  
+message Pong {
+    string pong = 1;
+}
+  
+
 message Message {
     uint64 messageId = 1;
     uint64 userId = 2;   
