@@ -15,6 +15,12 @@ service Ponger {
 message Pong {
     string pong = 1;
 }
+
+message WriteMessageRequest {
+    uint64 userId = 2;   
+    uint64 supportId = 3;
+    string content = 4;
+}
   
 
 message Message {
@@ -27,7 +33,7 @@ message Message {
 }
 
 service ChatService {
-    rpc WriteMessage(Message) returns (google.protobuf.Empty);
+    rpc WriteMessage(WriteMessageRequest) returns (google.protobuf.Empty);
 
     rpc GetChat(ChatRequest) returns (GetChatResponse);
 

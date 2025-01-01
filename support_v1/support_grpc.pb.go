@@ -109,7 +109,7 @@ var Ponger_ServiceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ChatServiceClient interface {
-	WriteMessage(ctx context.Context, in *Message, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	WriteMessage(ctx context.Context, in *WriteMessageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetChat(ctx context.Context, in *ChatRequest, opts ...grpc.CallOption) (*GetChatResponse, error)
 	GetSupportChats(ctx context.Context, in *GetSupportChatsRequest, opts ...grpc.CallOption) (*GetSupportChatsResponse, error)
 	AddSupport(ctx context.Context, in *SupportRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -125,7 +125,7 @@ func NewChatServiceClient(cc grpc.ClientConnInterface) ChatServiceClient {
 	return &chatServiceClient{cc}
 }
 
-func (c *chatServiceClient) WriteMessage(ctx context.Context, in *Message, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *chatServiceClient) WriteMessage(ctx context.Context, in *WriteMessageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/proto.ChatService/WriteMessage", in, out, opts...)
 	if err != nil {
@@ -183,7 +183,7 @@ func (c *chatServiceClient) ReadChat(ctx context.Context, in *ChatRequest, opts 
 // All implementations must embed UnimplementedChatServiceServer
 // for forward compatibility
 type ChatServiceServer interface {
-	WriteMessage(context.Context, *Message) (*emptypb.Empty, error)
+	WriteMessage(context.Context, *WriteMessageRequest) (*emptypb.Empty, error)
 	GetChat(context.Context, *ChatRequest) (*GetChatResponse, error)
 	GetSupportChats(context.Context, *GetSupportChatsRequest) (*GetSupportChatsResponse, error)
 	AddSupport(context.Context, *SupportRequest) (*emptypb.Empty, error)
@@ -196,7 +196,7 @@ type ChatServiceServer interface {
 type UnimplementedChatServiceServer struct {
 }
 
-func (UnimplementedChatServiceServer) WriteMessage(context.Context, *Message) (*emptypb.Empty, error) {
+func (UnimplementedChatServiceServer) WriteMessage(context.Context, *WriteMessageRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method WriteMessage not implemented")
 }
 func (UnimplementedChatServiceServer) GetChat(context.Context, *ChatRequest) (*GetChatResponse, error) {
@@ -228,7 +228,7 @@ func RegisterChatServiceServer(s grpc.ServiceRegistrar, srv ChatServiceServer) {
 }
 
 func _ChatService_WriteMessage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Message)
+	in := new(WriteMessageRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -240,7 +240,7 @@ func _ChatService_WriteMessage_Handler(srv interface{}, ctx context.Context, dec
 		FullMethod: "/proto.ChatService/WriteMessage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChatServiceServer).WriteMessage(ctx, req.(*Message))
+		return srv.(ChatServiceServer).WriteMessage(ctx, req.(*WriteMessageRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
