@@ -1,10 +1,12 @@
 syntax = "proto3";
 
 import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
 
 package proto;
 
 option go_package="github.com/artemKapitonov/prod-proto/support";
+
 
 service Ponger {
     rpc Ping(google.protobuf.Empty) returns (Pong);
@@ -21,7 +23,7 @@ message Message {
     uint64 supportId = 3;
     string content = 4;
     bool isRead = 5;
-    int64 timestamp = 6;
+    google.protobuf.Timestamp timestamp = 6;
 }
 
 service ChatService {
