@@ -19,7 +19,8 @@ message Pong {
 message WriteMessageRequest {
     uint64 userId = 2;   
     uint64 supportId = 3;
-    string content = 4;
+    uint64 senderId = 4;
+    string content = 5;
 }
   
 
@@ -27,9 +28,10 @@ message Message {
     string messageId = 1;
     uint64 userId = 2;   
     uint64 supportId = 3;
-    string content = 4;
-    bool isRead = 5;
-    google.protobuf.Timestamp timestamp = 6;
+    uint64 senderId = 4;
+    string content = 5;
+    bool isRead = 6;
+    google.protobuf.Timestamp timestamp = 7;
 }
 
 service ChatService {
