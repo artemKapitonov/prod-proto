@@ -17,10 +17,9 @@ message Pong {
 }
 
 message WriteMessageRequest {
-    uint64 userId = 2;   
-    uint64 supportId = 3;
-    uint64 senderId = 4;
-    string content = 5;
+    uint64 userId = 1;   
+    uint64 senderId = 2;
+    string content = 3;
 }
   
 
