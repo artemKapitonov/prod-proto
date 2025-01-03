@@ -105,266 +105,316 @@ var Ponger_ServiceDesc = grpc.ServiceDesc{
 	Metadata: "support_v1/support.proto",
 }
 
-// ChatServiceClient is the client API for ChatService service.
+// SupportChatServiceClient is the client API for SupportChatService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ChatServiceClient interface {
+type SupportChatServiceClient interface {
 	WriteMessage(ctx context.Context, in *WriteMessageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetChat(ctx context.Context, in *ChatRequest, opts ...grpc.CallOption) (*GetChatResponse, error)
 	GetSupportChats(ctx context.Context, in *GetSupportChatsRequest, opts ...grpc.CallOption) (*GetSupportChatsResponse, error)
-	AddSupport(ctx context.Context, in *SupportRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	RemoveSupport(ctx context.Context, in *SupportRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	ReadChat(ctx context.Context, in *ChatRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
-type chatServiceClient struct {
+type supportChatServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewChatServiceClient(cc grpc.ClientConnInterface) ChatServiceClient {
-	return &chatServiceClient{cc}
+func NewSupportChatServiceClient(cc grpc.ClientConnInterface) SupportChatServiceClient {
+	return &supportChatServiceClient{cc}
 }
 
-func (c *chatServiceClient) WriteMessage(ctx context.Context, in *WriteMessageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *supportChatServiceClient) WriteMessage(ctx context.Context, in *WriteMessageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/proto.ChatService/WriteMessage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/proto.SupportChatService/WriteMessage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *chatServiceClient) GetChat(ctx context.Context, in *ChatRequest, opts ...grpc.CallOption) (*GetChatResponse, error) {
+func (c *supportChatServiceClient) GetChat(ctx context.Context, in *ChatRequest, opts ...grpc.CallOption) (*GetChatResponse, error) {
 	out := new(GetChatResponse)
-	err := c.cc.Invoke(ctx, "/proto.ChatService/GetChat", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/proto.SupportChatService/GetChat", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *chatServiceClient) GetSupportChats(ctx context.Context, in *GetSupportChatsRequest, opts ...grpc.CallOption) (*GetSupportChatsResponse, error) {
+func (c *supportChatServiceClient) GetSupportChats(ctx context.Context, in *GetSupportChatsRequest, opts ...grpc.CallOption) (*GetSupportChatsResponse, error) {
 	out := new(GetSupportChatsResponse)
-	err := c.cc.Invoke(ctx, "/proto.ChatService/GetSupportChats", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/proto.SupportChatService/GetSupportChats", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *chatServiceClient) AddSupport(ctx context.Context, in *SupportRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *supportChatServiceClient) ReadChat(ctx context.Context, in *ChatRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/proto.ChatService/AddSupport", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/proto.SupportChatService/ReadChat", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *chatServiceClient) RemoveSupport(ctx context.Context, in *SupportRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/proto.ChatService/RemoveSupport", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *chatServiceClient) ReadChat(ctx context.Context, in *ChatRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/proto.ChatService/ReadChat", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// ChatServiceServer is the server API for ChatService service.
-// All implementations must embed UnimplementedChatServiceServer
+// SupportChatServiceServer is the server API for SupportChatService service.
+// All implementations must embed UnimplementedSupportChatServiceServer
 // for forward compatibility
-type ChatServiceServer interface {
+type SupportChatServiceServer interface {
 	WriteMessage(context.Context, *WriteMessageRequest) (*emptypb.Empty, error)
 	GetChat(context.Context, *ChatRequest) (*GetChatResponse, error)
 	GetSupportChats(context.Context, *GetSupportChatsRequest) (*GetSupportChatsResponse, error)
-	AddSupport(context.Context, *SupportRequest) (*emptypb.Empty, error)
-	RemoveSupport(context.Context, *SupportRequest) (*emptypb.Empty, error)
 	ReadChat(context.Context, *ChatRequest) (*emptypb.Empty, error)
-	mustEmbedUnimplementedChatServiceServer()
+	mustEmbedUnimplementedSupportChatServiceServer()
 }
 
-// UnimplementedChatServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedChatServiceServer struct {
+// UnimplementedSupportChatServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedSupportChatServiceServer struct {
 }
 
-func (UnimplementedChatServiceServer) WriteMessage(context.Context, *WriteMessageRequest) (*emptypb.Empty, error) {
+func (UnimplementedSupportChatServiceServer) WriteMessage(context.Context, *WriteMessageRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method WriteMessage not implemented")
 }
-func (UnimplementedChatServiceServer) GetChat(context.Context, *ChatRequest) (*GetChatResponse, error) {
+func (UnimplementedSupportChatServiceServer) GetChat(context.Context, *ChatRequest) (*GetChatResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetChat not implemented")
 }
-func (UnimplementedChatServiceServer) GetSupportChats(context.Context, *GetSupportChatsRequest) (*GetSupportChatsResponse, error) {
+func (UnimplementedSupportChatServiceServer) GetSupportChats(context.Context, *GetSupportChatsRequest) (*GetSupportChatsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSupportChats not implemented")
 }
-func (UnimplementedChatServiceServer) AddSupport(context.Context, *SupportRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddSupport not implemented")
-}
-func (UnimplementedChatServiceServer) RemoveSupport(context.Context, *SupportRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RemoveSupport not implemented")
-}
-func (UnimplementedChatServiceServer) ReadChat(context.Context, *ChatRequest) (*emptypb.Empty, error) {
+func (UnimplementedSupportChatServiceServer) ReadChat(context.Context, *ChatRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadChat not implemented")
 }
-func (UnimplementedChatServiceServer) mustEmbedUnimplementedChatServiceServer() {}
+func (UnimplementedSupportChatServiceServer) mustEmbedUnimplementedSupportChatServiceServer() {}
 
-// UnsafeChatServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ChatServiceServer will
+// UnsafeSupportChatServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to SupportChatServiceServer will
 // result in compilation errors.
-type UnsafeChatServiceServer interface {
-	mustEmbedUnimplementedChatServiceServer()
+type UnsafeSupportChatServiceServer interface {
+	mustEmbedUnimplementedSupportChatServiceServer()
 }
 
-func RegisterChatServiceServer(s grpc.ServiceRegistrar, srv ChatServiceServer) {
-	s.RegisterService(&ChatService_ServiceDesc, srv)
+func RegisterSupportChatServiceServer(s grpc.ServiceRegistrar, srv SupportChatServiceServer) {
+	s.RegisterService(&SupportChatService_ServiceDesc, srv)
 }
 
-func _ChatService_WriteMessage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SupportChatService_WriteMessage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(WriteMessageRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ChatServiceServer).WriteMessage(ctx, in)
+		return srv.(SupportChatServiceServer).WriteMessage(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/proto.ChatService/WriteMessage",
+		FullMethod: "/proto.SupportChatService/WriteMessage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChatServiceServer).WriteMessage(ctx, req.(*WriteMessageRequest))
+		return srv.(SupportChatServiceServer).WriteMessage(ctx, req.(*WriteMessageRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ChatService_GetChat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SupportChatService_GetChat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ChatRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ChatServiceServer).GetChat(ctx, in)
+		return srv.(SupportChatServiceServer).GetChat(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/proto.ChatService/GetChat",
+		FullMethod: "/proto.SupportChatService/GetChat",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChatServiceServer).GetChat(ctx, req.(*ChatRequest))
+		return srv.(SupportChatServiceServer).GetChat(ctx, req.(*ChatRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ChatService_GetSupportChats_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SupportChatService_GetSupportChats_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetSupportChatsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ChatServiceServer).GetSupportChats(ctx, in)
+		return srv.(SupportChatServiceServer).GetSupportChats(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/proto.ChatService/GetSupportChats",
+		FullMethod: "/proto.SupportChatService/GetSupportChats",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChatServiceServer).GetSupportChats(ctx, req.(*GetSupportChatsRequest))
+		return srv.(SupportChatServiceServer).GetSupportChats(ctx, req.(*GetSupportChatsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ChatService_AddSupport_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SupportRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ChatServiceServer).AddSupport(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/proto.ChatService/AddSupport",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChatServiceServer).AddSupport(ctx, req.(*SupportRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ChatService_RemoveSupport_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SupportRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ChatServiceServer).RemoveSupport(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/proto.ChatService/RemoveSupport",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChatServiceServer).RemoveSupport(ctx, req.(*SupportRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ChatService_ReadChat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SupportChatService_ReadChat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ChatRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ChatServiceServer).ReadChat(ctx, in)
+		return srv.(SupportChatServiceServer).ReadChat(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/proto.ChatService/ReadChat",
+		FullMethod: "/proto.SupportChatService/ReadChat",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChatServiceServer).ReadChat(ctx, req.(*ChatRequest))
+		return srv.(SupportChatServiceServer).ReadChat(ctx, req.(*ChatRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// ChatService_ServiceDesc is the grpc.ServiceDesc for ChatService service.
+// SupportChatService_ServiceDesc is the grpc.ServiceDesc for SupportChatService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var ChatService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "proto.ChatService",
-	HandlerType: (*ChatServiceServer)(nil),
+var SupportChatService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "proto.SupportChatService",
+	HandlerType: (*SupportChatServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "WriteMessage",
-			Handler:    _ChatService_WriteMessage_Handler,
+			Handler:    _SupportChatService_WriteMessage_Handler,
 		},
 		{
 			MethodName: "GetChat",
-			Handler:    _ChatService_GetChat_Handler,
+			Handler:    _SupportChatService_GetChat_Handler,
 		},
 		{
 			MethodName: "GetSupportChats",
-			Handler:    _ChatService_GetSupportChats_Handler,
-		},
-		{
-			MethodName: "AddSupport",
-			Handler:    _ChatService_AddSupport_Handler,
-		},
-		{
-			MethodName: "RemoveSupport",
-			Handler:    _ChatService_RemoveSupport_Handler,
+			Handler:    _SupportChatService_GetSupportChats_Handler,
 		},
 		{
 			MethodName: "ReadChat",
-			Handler:    _ChatService_ReadChat_Handler,
+			Handler:    _SupportChatService_ReadChat_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "support_v1/support.proto",
+}
+
+// SupportManagerServiceClient is the client API for SupportManagerService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type SupportManagerServiceClient interface {
+	AddSupport(ctx context.Context, in *SupportRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	RemoveSupport(ctx context.Context, in *SupportRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+}
+
+type supportManagerServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewSupportManagerServiceClient(cc grpc.ClientConnInterface) SupportManagerServiceClient {
+	return &supportManagerServiceClient{cc}
+}
+
+func (c *supportManagerServiceClient) AddSupport(ctx context.Context, in *SupportRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/proto.SupportManagerService/AddSupport", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *supportManagerServiceClient) RemoveSupport(ctx context.Context, in *SupportRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/proto.SupportManagerService/RemoveSupport", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// SupportManagerServiceServer is the server API for SupportManagerService service.
+// All implementations must embed UnimplementedSupportManagerServiceServer
+// for forward compatibility
+type SupportManagerServiceServer interface {
+	AddSupport(context.Context, *SupportRequest) (*emptypb.Empty, error)
+	RemoveSupport(context.Context, *SupportRequest) (*emptypb.Empty, error)
+	mustEmbedUnimplementedSupportManagerServiceServer()
+}
+
+// UnimplementedSupportManagerServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedSupportManagerServiceServer struct {
+}
+
+func (UnimplementedSupportManagerServiceServer) AddSupport(context.Context, *SupportRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddSupport not implemented")
+}
+func (UnimplementedSupportManagerServiceServer) RemoveSupport(context.Context, *SupportRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveSupport not implemented")
+}
+func (UnimplementedSupportManagerServiceServer) mustEmbedUnimplementedSupportManagerServiceServer() {}
+
+// UnsafeSupportManagerServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to SupportManagerServiceServer will
+// result in compilation errors.
+type UnsafeSupportManagerServiceServer interface {
+	mustEmbedUnimplementedSupportManagerServiceServer()
+}
+
+func RegisterSupportManagerServiceServer(s grpc.ServiceRegistrar, srv SupportManagerServiceServer) {
+	s.RegisterService(&SupportManagerService_ServiceDesc, srv)
+}
+
+func _SupportManagerService_AddSupport_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SupportRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SupportManagerServiceServer).AddSupport(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.SupportManagerService/AddSupport",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SupportManagerServiceServer).AddSupport(ctx, req.(*SupportRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SupportManagerService_RemoveSupport_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SupportRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SupportManagerServiceServer).RemoveSupport(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.SupportManagerService/RemoveSupport",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SupportManagerServiceServer).RemoveSupport(ctx, req.(*SupportRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// SupportManagerService_ServiceDesc is the grpc.ServiceDesc for SupportManagerService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var SupportManagerService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "proto.SupportManagerService",
+	HandlerType: (*SupportManagerServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "AddSupport",
+			Handler:    _SupportManagerService_AddSupport_Handler,
+		},
+		{
+			MethodName: "RemoveSupport",
+			Handler:    _SupportManagerService_RemoveSupport_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

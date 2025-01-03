@@ -33,18 +33,20 @@ message Message {
     google.protobuf.Timestamp timestamp = 7;
 }
 
-service ChatService {
+service SupportChatService {
     rpc WriteMessage(WriteMessageRequest) returns (google.protobuf.Empty);
 
     rpc GetChat(ChatRequest) returns (GetChatResponse);
 
     rpc GetSupportChats(GetSupportChatsRequest) returns (GetSupportChatsResponse);
-  
+
+    rpc ReadChat(ChatRequest) returns (google.protobuf.Empty);
+}
+
+service SupportManagerService {
     rpc AddSupport(SupportRequest) returns (google.protobuf.Empty);
 
     rpc RemoveSupport(SupportRequest) returns (google.protobuf.Empty);
-
-    rpc ReadChat(ChatRequest) returns (google.protobuf.Empty);
 }
 
 
