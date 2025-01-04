@@ -40,7 +40,7 @@ service SupportChatService {
 
     rpc GetSupportChats(GetSupportChatsRequest) returns (GetSupportChatsResponse);
 
-    rpc ReadChat(ChatRequest) returns (google.protobuf.Empty);
+    rpc ReadChat(ReadChatRequest) returns (google.protobuf.Empty);
 }
 
 service SupportManagerService {
@@ -52,6 +52,11 @@ service SupportManagerService {
 
 message ChatRequest {
     uint64 userId = 1; 
+}
+
+message ReadChatRequest {
+    uint64 userId = 1; 
+    uint64 readerId = 2;
 }
 
 message GetChatResponse {

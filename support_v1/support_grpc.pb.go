@@ -112,7 +112,7 @@ type SupportChatServiceClient interface {
 	WriteMessage(ctx context.Context, in *WriteMessageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetChat(ctx context.Context, in *ChatRequest, opts ...grpc.CallOption) (*GetChatResponse, error)
 	GetSupportChats(ctx context.Context, in *GetSupportChatsRequest, opts ...grpc.CallOption) (*GetSupportChatsResponse, error)
-	ReadChat(ctx context.Context, in *ChatRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	ReadChat(ctx context.Context, in *ReadChatRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type supportChatServiceClient struct {
@@ -150,7 +150,7 @@ func (c *supportChatServiceClient) GetSupportChats(ctx context.Context, in *GetS
 	return out, nil
 }
 
-func (c *supportChatServiceClient) ReadChat(ctx context.Context, in *ChatRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *supportChatServiceClient) ReadChat(ctx context.Context, in *ReadChatRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/proto.SupportChatService/ReadChat", in, out, opts...)
 	if err != nil {
@@ -166,7 +166,7 @@ type SupportChatServiceServer interface {
 	WriteMessage(context.Context, *WriteMessageRequest) (*emptypb.Empty, error)
 	GetChat(context.Context, *ChatRequest) (*GetChatResponse, error)
 	GetSupportChats(context.Context, *GetSupportChatsRequest) (*GetSupportChatsResponse, error)
-	ReadChat(context.Context, *ChatRequest) (*emptypb.Empty, error)
+	ReadChat(context.Context, *ReadChatRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedSupportChatServiceServer()
 }
 
@@ -183,7 +183,7 @@ func (UnimplementedSupportChatServiceServer) GetChat(context.Context, *ChatReque
 func (UnimplementedSupportChatServiceServer) GetSupportChats(context.Context, *GetSupportChatsRequest) (*GetSupportChatsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSupportChats not implemented")
 }
-func (UnimplementedSupportChatServiceServer) ReadChat(context.Context, *ChatRequest) (*emptypb.Empty, error) {
+func (UnimplementedSupportChatServiceServer) ReadChat(context.Context, *ReadChatRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadChat not implemented")
 }
 func (UnimplementedSupportChatServiceServer) mustEmbedUnimplementedSupportChatServiceServer() {}
@@ -254,7 +254,7 @@ func _SupportChatService_GetSupportChats_Handler(srv interface{}, ctx context.Co
 }
 
 func _SupportChatService_ReadChat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ChatRequest)
+	in := new(ReadChatRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -266,7 +266,7 @@ func _SupportChatService_ReadChat_Handler(srv interface{}, ctx context.Context, 
 		FullMethod: "/proto.SupportChatService/ReadChat",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SupportChatServiceServer).ReadChat(ctx, req.(*ChatRequest))
+		return srv.(SupportChatServiceServer).ReadChat(ctx, req.(*ReadChatRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
